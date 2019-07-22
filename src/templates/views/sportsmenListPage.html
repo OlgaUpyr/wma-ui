@@ -1,0 +1,162 @@
+<div ng-controller="CreateCompetitionController as competitionController" class="app-body add-new-competition-page">
+    <div style="visibility: hidden;">
+        <div class="md-dialog-container" id="addSportsmanDialog">
+            <md-dialog class="popup-container" layout-padding="">
+                <div class="close-icon" ng-click="competitionController.closeDialog();">x</div>
+                <form name="addNewSportsmanForm">
+                    <h4 ng-if="!competitionController.newSportsman.id" class="popup-title">Додати спортсмена</h4>
+                    <h4 ng-if="competitionController.newSportsman.id" class="popup-title">Редагувати спортсмена</h4>
+
+                    <div class="popup-fields-container">
+                        <div layout="row" style="justify-content: space-between">
+                            <md-input-container flex="45">
+                                <label>Ім'я</label>
+                                <input id="firstName" name="firstName"
+                                       ng-model="competitionController.newSportsman.firstName">
+                            </md-input-container>
+
+                            <md-input-container flex="45">
+                                <label>Прізвище</label>
+                                <input id="lastName" name="lastName"
+                                       ng-model="competitionController.newSportsman.lastName">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" style="justify-content: space-between">
+                            <md-input-container flex="45">
+                                <label>Ім'я (англійською)</label>
+                                <input id="firstNameEng" name="firstNameEng"
+                                       ng-model="competitionController.newSportsman.firstNameEng">
+                            </md-input-container>
+
+                            <md-input-container flex="45">
+                                <label>Прізвище (англійською)</label>
+                                <input id="lastNameEng" name="lastNameEng"
+                                       ng-model="competitionController.newSportsman.lastNameEng">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" ng-if="!competitionController.newSportsman.id"
+                             style="justify-content: space-between">
+                            <div layout="row" flex="45">
+                                <md-datepicker style="width: 0; margin-right: 0" ng-model="competitionController.dob"
+                                               md-is-open="competitionController.isDOBOpen"
+                                               ng-change="competitionController.setDOB()">
+                                </md-datepicker>
+                                <md-input-container>
+                                    <label>Дата народження</label>
+                                    <input name="dob" contenteditable="false"
+                                           ng-change="competitionController.isDOBOpen = false"
+                                           ng-model="competitionController.newSportsman.dob"
+                                           ng-click="competitionController.isDOBOpen = true">
+                                </md-input-container>
+                            </div>
+
+                            <md-input-container flex="45">
+                                <label>Стать</label>
+                                <md-select id="gender" name="gender"
+                                           ng-model="competitionController.newSportsman.gender">
+                                    <md-option ng-repeat="gender in competitionController.genders" ng-value="gender"
+                                               ng-checked="competitionController.newSportsman.gender === gender">
+                                        {{gender}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" flex="100">
+                            <md-input-container style="width: 100%">
+                                <label>Адреса</label>
+                                <input id="address" name="address"
+                                       ng-model="competitionController.newSportsman.address">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" flex="100">
+                            <md-input-container style="width: 100%">
+                                <label>Телефон</label>
+                                <input id="phone" name="phone"
+                                       ng-model="competitionController.newSportsman.phone">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" flex="100">
+                            <md-input-container style="width: 100%">
+                                <label>E-mail</label>
+                                <input id="email" name="email" type="email"
+                                       ng-model="competitionController.newSportsman.email">
+                            </md-input-container>
+                        </div>
+                    </div>
+                </form>
+
+                <div layout="row" layout-align="center">
+                    <md-button ng-if="!competitionController.newSportsman.id"
+                               class="green-button" ng-disabled="!competitionController.isNewSportsmanIsNotEmpty()"
+                               ng-click="competitionController.saveSportsmanInfo()">
+                        Зберегти
+                    </md-button>
+
+                    <md-button ng-if="competitionController.newSportsman.id"
+                               class="green-button" ng-disabled="!competitionController.isNewSportsmanIsNotEmpty()"
+                               ng-click="competitionController.editSportsman()">
+                        Зберегти
+                    </md-button>
+                </div>
+            </md-dialog>
+        </div>
+    </div>
+
+    <div layout="column">
+        <div layout="row" style="justify-content: space-between; margin-right: 120px">
+            <div class="page-title">Список спортсменів</div>
+
+            <md-button class="black-button" ng-disabled="addCompetitionStep2.$invalid"
+                       ng-click="competitionController.displayAddSportsmanDialog()">
+                Додати спортсмена
+            </md-button>
+        </div>
+    </div>
+
+    <div class="form-fields-container" style="padding-bottom: 32px">
+        <div ng-init="competitionController.initSportsmenList(null)">
+            <div layout="row" class="list-header">
+                <div flex="20">
+                    <input class="filter-input" name="filterName" ng-model="competitionController.filterName"
+                           placeholder="Повне ім'я">
+                </div>
+                <div flex="10" class="header-label">Стать</div>
+                <div flex="15" class="header-label">Дата народження</div>
+                <div flex="15" class="header-label">E-mail</div>
+                <div flex="15" class="header-label">Телефон</div>
+                <div flex="20" class="header-label">Адреса</div>
+                <div flex="5"></div>
+            </div>
+
+            <div class="list-container">
+                <div layout="row" class="list-row" ng-repeat="sportsman in competitionController.sportsmenList">
+                    <div flex="20">
+                        {{ sportsman.firstName }} {{ sportsman.lastName }}
+                        <div style="opacity: 0.5">{{ sportsman.firstNameEng }} {{ sportsman.lastNameEng }}</div>
+                    </div>
+                    <div flex="10">{{ sportsman.gender }}</div>
+                    <div flex="15">{{ sportsman.dob }}</div>
+                    <div flex="15">{{ sportsman.email }}</div>
+                    <div flex="15">{{ sportsman.phone }}</div>
+                    <div flex="20">{{ sportsman.address }}</div>
+                    <div flex="5" class="options-menu"
+                         ng-click="sportsman.checked = !sportsman.checked"></div>
+                    <div ng-if="sportsman.checked" class="options-menu-dialog"
+                         ng-mouseleave="sportsman.checked = false">
+                        <div ng-click="competitionController.displayAddSportsmanDialog(sportsman)">Редагувати</div>
+                        <div>Видалити з системи</div>
+                    </div>
+                </div>
+
+                <div ng-if="competitionController.sportsmenList.length === 0" class="empty-list-text">
+                    Відсутні спортсмени для відображення...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

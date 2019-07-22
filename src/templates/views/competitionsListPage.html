@@ -1,0 +1,45 @@
+<div ng-controller="CreateCompetitionController as competitionController" class="app-body add-new-competition-page">
+    <div layout="column">
+        <div layout="row" style="justify-content: space-between; margin-right: 120px">
+            <div class="page-title">Список змагань</div>
+
+            <md-button class="black-button" ng-disabled="addCompetitionStep2.$invalid"
+                       ng-click="competitionController.goToCompetitionSetupPage()">
+                Додати змагання
+            </md-button>
+        </div>
+    </div>
+
+    <div class="form-fields-container" ng-init="competitionController.initCompetitionsList()">
+        <div layout="row" class="list-header">
+            <div flex="25">Назва</div>
+            <div flex="30">Місце проведення</div>
+            <div flex="20">Тривалість</div>
+            <div flex="10">Тип</div>
+            <div flex="10">Клас</div>
+            <div flex="5"></div>
+        </div>
+
+        <div class="list-container">
+            <div layout="row" class="list-row" ng-repeat="competition in competitionController.competitionsList">
+                <div flex="25">{{ competition.name }}</div>
+                <div flex="30">{{ competition.venue }}</div>
+                <div flex="20">{{ competition.startDate }} – {{competition.endDate }}</div>
+                <div flex="10">{{ competition.competitionType.charAt(0).toUpperCase() + competition.competitionType.slice(1) }}</div>
+                <div flex="10">{{ competition.competitionClass.charAt(0).toUpperCase() + competition.competitionClass.slice(1) }}</div>
+                <div flex="5" class="options-menu"
+                     ng-click="team.checked = !team.checked"></div>
+                <div ng-if="team.checked" class="options-menu-dialog"
+                     ng-mouseleave="team.checked = false">
+                    <div>Редагувати загальну інформацію</div>
+                    <div ng-click="competitionController.goToAddSportsmenPage(competition.id)">Додати спортсменів</div>
+                    <div ng-click="competitionController.goToResultsListWithId(competition.id)">Записати результати</div>
+                </div>
+            </div>
+
+            <div ng-if="competitionController.competitionsList.length === 0" class="empty-list-text">
+                Відсутні змагання для відображення...
+            </div>
+        </div>
+    </div>
+</div>

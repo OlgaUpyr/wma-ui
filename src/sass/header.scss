@@ -1,0 +1,31 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  background-color: rgba(228, 230, 236, 0.9);
+  font-weight: 700;
+  font-size: 11px;
+  font-family: 'Lato', sans-serif;
+
+  a {
+    line-height: 15px;
+    color: rgba(30, 35, 62, 0.7) !important;
+    min-height: 45px;
+    border-bottom: 1px solid rgba(30, 35, 62, 0.1);
+    padding-left: 32px!important;
+  }
+}
+
+.header-image {
+  opacity: 0.2;
+  margin-bottom: 6px;
+  margin-top: 12px;
+}
+
+.nav-link {
+  text-align: center;
+}

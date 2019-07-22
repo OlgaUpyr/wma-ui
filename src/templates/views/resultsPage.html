@@ -1,0 +1,220 @@
+<div ng-controller="CreateCompetitionController as competitionController" class="app-body add-new-competition-page">
+    <div style="visibility: hidden;">
+        <div class="md-dialog-container" id="writeResultsDialog">
+            <md-dialog class="popup-container" layout-padding="" style="height: max-content; width: 600px">
+                <div class="close-icon" ng-click="competitionController.closeResultDialog()">x</div>
+                <form name="registerSportsmanForm">
+                    <h4 class="popup-title">Записати результати</h4>
+
+                    <div ng-if="!competitionController.typeOfSportForResults.isRunning &&
+                            !competitionController.isAddNewResultWithAttemptActive"
+                         layout="column" class="popup-fields-container" flex="100"
+                         style="justify-content: space-around; margin-top: 32px">
+
+                        <div layout="row" class="popup-list-header">
+                            <div flex="35">Результат</div>
+                            <div flex="40">Спроба</div>
+                            <div flex="25">Редагування</div>
+                        </div>
+
+                        <div class="list-container results">
+                            <div layout="row" class="list-row results"
+                                 ng-repeat="attempt in competitionController.newResult.attempts">
+                                <div flex="35">
+                                    {{ attempt.actualResult }}
+                                </div>
+                                <div layout="row" flex="40">
+                                    <div ng-class="{fail: attempt.attempt === -1,
+                                    pass: attempt.attempt === 1, missed: attempt.attempt === 0 }"></div>
+                                    <div ng-if="attempt.attempt === 0">Пропущено</div>
+                                    <div ng-if="attempt.attempt === -1">Невдала</div>
+                                    <div ng-if="attempt.attempt === 1">Вдала</div>
+                                </div>
+                                <div flex="25" class="edit-result-btn"
+                                     ng-click="competitionController.goToEditAttemptPage(attempt)">Змінити</div>
+                            </div>
+
+                            <div ng-if="competitionController.newResult.attempts.length === 0" class="empty-list-text">
+                                Відсутні результати для відображення...
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-align="center" style="margin-top: 50px">
+                            <md-button ng-click="competitionController.isAddNewResultWithAttemptActive = true"
+                                       class="black-button">Додати результат</md-button>
+                        </div>
+                    </div>
+
+                    <div ng-if="!competitionController.typeOfSportForResults.isRunning &&
+                            competitionController.isAddNewResultWithAttemptActive"
+                         layout="column" class="popup-fields-container" flex="100">
+                        <div layout="row" style="justify-content: space-around; margin-top: 32px" flex="100">
+                            <md-input-container flex="45">
+                                <label>Спроба</label>
+                                <md-select id="attempt" name="attempt" ng-model="competitionController.newAttempt.attempt">
+                                    <md-option ng-repeat="attempt in competitionController.attempts" ng-value="attempt.value"
+                                               ng-checked="competitionController.newAttempt.attempt === attempt.value">
+                                        {{attempt.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container flex="45">
+                                <label>Результат</label>
+                                <input id="resultValue" name="resultValue" ng-model="competitionController.newAttempt.actualResult">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" layout-align="center" style="margin-top: 50px">
+                            <md-button class="black-button" style="margin-right: 16px"
+                                       ng-click="competitionController.isAddNewResultWithAttemptActive = false">
+                                Назад
+                            </md-button>
+
+                            <md-button class="green-button" ng-disabled="registerSportsmanForm.$invalid"
+                                       ng-click="competitionController.saveDistanceResult(competitionController.newAttempt)">
+                                Зберегти
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <div ng-if="competitionController.typeOfSportForResults.isRunning"
+                         layout="column" class="popup-fields-container">
+                        <div layout="row" style="justify-content: center; margin-top: 32px">
+                            <md-input-container flex="15">
+                                <label>HH</label>
+                                <input id="hours" name="hours" ng-model="competitionController.newResult.attempts[0].resultHours">
+                            </md-input-container>
+
+                            <div style="font-size: 20px; padding: 5px">:</div>
+
+                            <md-input-container flex="15">
+                                <label>MM</label>
+                                <input id="minutes" name="minutes" ng-model="competitionController.newResult.attempts[0].resultMinutes">
+                            </md-input-container>
+
+                            <div style="font-size: 20px; padding: 5px">:</div>
+
+                            <md-input-container flex="15">
+                                <label>SS</label>
+                                <input id="seconds" name="seconds" ng-model="competitionController.newResult.attempts[0].resultSeconds">
+                            </md-input-container>
+
+                            <div style="font-size: 20px; padding: 5px">:</div>
+
+                            <md-input-container flex="15">
+                                <label>MS</label>
+                                <input id="miliseconds" name="miliseconds" ng-model="competitionController.newResult.attempts[0].resultMiliseconds">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row" layout-align="center" style="margin-top: 50px">
+                            <md-button class="green-button" ng-click="competitionController.saveTimeResult()">
+                                Зберегти
+                            </md-button>
+                        </div>
+                    </div>
+                </form>
+            </md-dialog>
+        </div>
+    </div>
+
+    <div layout="row" ng-init="competitionController.initSportTypesList()">
+        <div class="page-title" style="margin-right: 120px">Результати змагання</div>
+
+        <md-input-container style="width: max-content; font-size: 18px; margin-top: 2px">
+            <md-select id="sport" name="sport" ng-model="competitionController.typeOfSportForResults"
+                       ng-change="competitionController.getResultsList()">
+                <md-option ng-repeat="sport in competitionController.sportTypesList" ng-value="sport"
+                           ng-checked="competitionController.typeOfSportForResults.id === sport.id">
+                    {{sport.typeName}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <div class="form-fields-container" style="padding-bottom: 32px">
+        <div layout="row" class="list-header">
+            <div flex="5" class="header-label">№</div>
+            <div flex="20" class="header-label">Спортсмен</div>
+            <div flex="15" class="header-label">Команда</div>
+            <div flex="10" class="header-label">Категорія</div>
+            <div layout="row" flex="45" class="header-label row"
+                 ng-if="!competitionController.typeOfSportForResults.isRunning">
+                <div flex="35">Проміжні результати</div>
+                <div flex="35">Остаточний результат</div>
+                <div flex="30">Рейтинг WMA</div>
+            </div>
+
+            <div layout="row" flex="45" class="header-label row"
+                 ng-if="competitionController.typeOfSportForResults.isRunning">
+                <div flex="35">Фактичний результат</div>
+                <div flex="35">Остаточний результат</div>
+                <div flex="30">Рейтинг WMA</div>
+            </div>
+            <div flex="5"></div>
+        </div>
+
+        <div class="list-container">
+            <div layout="row" class="list-row"
+                 ng-repeat="result in competitionController.resultList"
+                 ng-class="{'personal-score-participant':result.participant.personalScore}">
+                <div flex="5">{{result.participant.number}}</div>
+                <div flex="20">
+                    {{ result.sportsman.firstName }} {{ result.sportsman.lastName }}
+                    <div style="opacity: 0.5">{{ result.sportsman.firstNameEng }}
+                        {{ result.sportsman.lastNameEng }}</div>
+                </div>
+                <div flex="15">
+                    <div>{{result.team.name}}</div>
+                    <div style="opacity: 0.5">{{result.team.region}} - {{result.team.country}}</div>
+                </div>
+                <div flex="10">{{ result.sportsman.category.category }}</div>
+                <div layout="row" flex="45" ng-if="!competitionController.typeOfSportForResults.isRunning">
+                    <div flex="35">
+                        <div layout="row" ng-repeat="attempt in result.result.attempts">
+                            <div ng-class="{fail: attempt.attempt === -1,
+                            pass: attempt.attempt === 1, missed: attempt.attempt === 0 }"></div>
+                            <div ng-if="attempt.actualResult > 0">{{attempt.actualResult}}</div>
+                            <div ng-if="attempt.actualResult === null">—</div>
+                        </div>
+                    </div>
+
+                    <div flex="35" ng-if="result.result.finalResult > 0">{{result.result.finalResult}}</div>
+                    <div flex="35" ng-if="result.result.finalResult === null">—</div>
+
+                    <div flex="30" ng-if="result.result.wma > 0">{{result.result.wma}}</div>
+                    <div flex="30" ng-if="result.result.wma === null">—</div>
+                </div>
+
+                <div layout="row" flex="45" ng-if="competitionController.typeOfSportForResults.isRunning">
+                    <div flex="35" layout="row" ng-if="result.result.attempts.length === 1">
+                        <div ng-if="result.result.attempts[0].resultHours > 0">{{result.result.attempts[0].resultHours}}:</div>
+                        <div>{{result.result.attempts[0].resultMinutes}}:</div>
+                        <div>{{result.result.attempts[0].resultSeconds}}</div>
+                        <div>.{{result.result.attempts[0].resultMiliseconds}}</div>
+                    </div>
+                    <div flex="35" ng-if="result.result.attempts.length === 0">—</div>
+
+                    <div flex="35" ng-if="result.result.finalResult > 0">{{result.result.finalResult}}</div>
+                    <div flex="35" ng-if="result.finalResult === null">—</div>
+
+                    <div flex="30" ng-if="result.result.wma > 0">{{result.result.wma}}</div>
+                    <div flex="30" ng-if="result.result.wma === null">—</div>
+                </div>
+                <div flex="5" class="options-menu"
+                     ng-click="result.checked = !result.checked"></div>
+                <div ng-if="result.checked" class="options-menu-dialog"
+                     ng-mouseleave="result.checked = false">
+                    <div ng-click="competitionController.displayWriteResultsDialog(result)">
+                        Записати результати
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="competitionController.resultList.length === 0" class="empty-list-text">
+                Відсутні результати для відображення...
+            </div>
+        </div>
+    </div>
+</div>

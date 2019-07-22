@@ -1,0 +1,9 @@
+[
+  "./node_modules/angular-material/angular-material.css",
+  "./node_modules/angular/angular-csp.css",
+  "./node_modules/angular-treasure-overlay-spinner/src/treasure-overlay-spinner.css",
+  "./node_modules/angular-auto-complete/angular-auto-complete.css",
+  "./node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css",
+  "./node_modules/ng-tags-input/build/ng-tags-input.min.css",
+  "./src/css/bootstrap.css"
+]

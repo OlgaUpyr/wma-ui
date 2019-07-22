@@ -1,0 +1,494 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background-color: rgba(228, 230, 236, 0.9);
+  font-weight: 700;
+  font-size: 11px;
+  font-family: 'Lato', sans-serif; }
+  .sidebar a {
+    line-height: 15px;
+    color: rgba(30, 35, 62, 0.7) !important;
+    min-height: 45px;
+    border-bottom: 1px solid rgba(30, 35, 62, 0.1);
+    padding-left: 32px !important; }
+
+.header-image {
+  opacity: 0.2;
+  margin-bottom: 6px;
+  margin-top: 12px; }
+
+.nav-link {
+  text-align: center; }
+
+.app-body {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content; }
+
+.md-datepicker-input {
+  display: none; }
+
+.md-datepicker-triangle-button .md-datepicker-expand-triangle {
+  display: none; }
+
+.md-datepicker-input-mask {
+  height: 0 !important; }
+
+._md-datepicker-has-triangle-icon {
+  padding: 0 !important; }
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0; }
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee; }
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc; }
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3; }
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block; }
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 9px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
+.back-page-link {
+  opacity: 0.8;
+  margin-bottom: 16px;
+  margin-left: 5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  font-size: 13px; }
+
+.tabs-container {
+  border-bottom: 1px solid #abc;
+  margin: 32px 120px 24px 0;
+  font-size: 13px; }
+  .tabs-container input {
+    display: none; }
+  .tabs-container label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    font-weight: 600;
+    text-align: center;
+    color: #abc;
+    border: 1px solid transparent; }
+  .tabs-container label:before {
+    font-family: Lato-Regular;
+    font-weight: 700;
+    margin-right: 10px; }
+  .tabs-container label:hover {
+    color: #789;
+    cursor: pointer; }
+  .tabs-container input:checked + label {
+    color: #2196F3;
+    border: 1px solid #abc;
+    border-top: 2px solid #2196F3;
+    border-bottom: 2px solid #fff; }
+  @media screen and (max-width: 800px) {
+    .tabs-container label {
+      font-size: 0; }
+    .tabs-container label:before {
+      margin: 0;
+      font-size: 18px; } }
+  @media screen and (max-width: 500px) {
+    .tabs-container label {
+      padding: 15px; } }
+
+.options-menu {
+  background: url("../images/options-menu.svg") no-repeat;
+  opacity: 0.4;
+  height: 23px;
+  width: 5px; }
+
+.list-header {
+  font-size: 13px;
+  padding: 12px;
+  -webkit-box-shadow: 0 2px 6px rgba(57, 72, 101, 0.3);
+          box-shadow: 0 2px 6px rgba(57, 72, 101, 0.3);
+  border-radius: 4px; }
+  .list-header div {
+    opacity: 0.4;
+    padding-top: 3px; }
+
+.radio-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+/* Hide the browser's default radio button */
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; }
+
+/* Create a custom radio button */
+.radio-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%; }
+
+/* On mouse-over, add a grey background color */
+.radio-container:hover input ~ .radio-checkmark {
+  background-color: #ccc; }
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .radio-checkmark {
+  background-color: #2196F3; }
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the indicator (dot/circle) when checked */
+.radio-container input:checked ~ .radio-checkmark:after {
+  display: block; }
+
+/* Style the indicator (dot/circle) */
+.radio-container .radio-checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white; }
+
+.popup-container {
+  padding: 0 32px 40px 32px; }
+  .popup-container md-input-container {
+    padding: 0;
+    margin: 3px; }
+  .popup-container .popup-title {
+    font-weight: 700; }
+  .popup-container .popup-fields-container {
+    margin: 21px 0; }
+    .popup-container .popup-fields-container .popup-list-header {
+      opacity: 0.5;
+      font-weight: 700;
+      font-size: 12px; }
+  .popup-container .green-button {
+    padding: 0; }
+  .popup-container .close-icon {
+    font-family: Arial, sans-serif;
+    opacity: 0.5;
+    font-size: 24px;
+    margin: 8px -20px 0 auto;
+    padding: 0 8px;
+    cursor: pointer; }
+
+.fail, .pass, .missed {
+  height: 8px;
+  width: 8px;
+  margin-right: 5px;
+  margin-top: 4px;
+  border-radius: 50%; }
+
+.fail {
+  background-color: rgba(255, 0, 0, 0.8); }
+
+.pass {
+  background-color: green; }
+
+.missed {
+  background-color: darkgrey; }
+
+.empty-list-text {
+  opacity: 0.3;
+  text-align: center;
+  line-height: 350px; }
+
+.list-container {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 32px; }
+  .list-container .list-row {
+    padding: 28px 12px;
+    border-bottom: 1px solid rgba(30, 35, 62, 0.05); }
+    .list-container .list-row.results {
+      padding: 8px 12px; }
+    .list-container .list-row.personal-score-participant {
+      background-color: rgba(0, 0, 0, 0.03); }
+  .list-container.results {
+    max-height: 250px;
+    overflow-y: scroll;
+    margin-bottom: 12px; }
+    .list-container.results .empty-list-text {
+      line-height: 250px; }
+  .list-container.unregistered-sportsmen {
+    min-width: 700px;
+    max-width: 700px;
+    max-height: 300px;
+    overflow-y: scroll; }
+    .list-container.unregistered-sportsmen .list-row {
+      padding: 10px 10px; }
+
+.edit-result-btn {
+  color: royalblue;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  margin-left: 20px;
+  cursor: pointer;
+  text-align: center; }
+  .edit-result-btn.no-margin {
+    margin-left: 0; }
+
+tags-input {
+  min-height: -webkit-max-content;
+  min-height: -moz-max-content;
+  min-height: max-content; }
+
+.bootstrap .tags {
+  font-weight: 400;
+  background-color: #fff;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid rgba(171, 174, 187, 0.5);
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.075);
+  -webkit-transition: none;
+  transition: none; }
+
+.bootstrap .tags.focused {
+  border-color: transparent;
+  border-bottom: 1px solid #abaebb;
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.075); }
+
+.bootstrap .tags .tag-item {
+  font-family: Lato-Regular;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.34px;
+  border-radius: 7px;
+  border: 1px solid #C9CBD4;
+  background: #C9CBD4; }
+
+tags-input.ng-invalid .tags {
+  -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
+          box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
+  border-color: transparent;
+  border-bottom: 1px solid #dd2c00; }
+
+.bootstrap .tags .tag-item.selected {
+  background: #ffffff;
+  border: 1px solid #C9CBD4;
+  color: #C9CBD4; }
+  .bootstrap .tags .tag-item.selected .remove-button {
+    border-left: 1px solid #C9CBD4;
+    color: #C9CBD4; }
+  .bootstrap .tags .tag-item.selected.no-tag {
+    display: none; }
+
+.bootstrap .tags .tag-item .remove-button {
+  background: transparent;
+  color: #ffffff;
+  padding-left: 6px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2); }
+
+.bootstrap .autocomplete .suggestion-item {
+  font-weight: 700;
+  letter-spacing: -0.34px;
+  background-color: white;
+  height: 36px; }
+
+.bootstrap .autocomplete .suggestion-item.selected {
+  color: #6d8eee;
+  font-weight: 700;
+  letter-spacing: -0.34px;
+  background-color: #e4e7ee;
+  border-radius: 2px;
+  padding-right: 8px; }
+
+.bootstrap .autocomplete .suggestion-item em {
+  background-color: #D4DFFF;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-radius: 2px; }
+
+.bootstrap .autocomplete .suggestion-item.selected em {
+  background-color: #D4DFFF;
+  color: #6d8eee; }
+
+tags-input .autocomplete .suggestion-list {
+  max-height: 150px; }
+
+.filter-input {
+  height: 35px;
+  border-radius: 4px;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  padding-left: 5px; }
+  .filter-input.search {
+    min-height: 40px; }
+
+.search-button {
+  background: url("../images/search-icon.svg") no-repeat 3px;
+  opacity: 0.6;
+  cursor: pointer;
+  height: 40px;
+  width: 40px; }
+
+.header-label {
+  margin-top: 8px; }
+  .header-label.row {
+    opacity: 1;
+    margin-top: 5px; }
+
+.page-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #1e233e;
+  margin-bottom: 12px; }
+
+.options-menu-dialog {
+  position: absolute;
+  right: 130px;
+  margin-top: -3px;
+  -webkit-box-shadow: 0 2px 6px rgba(57, 72, 101, 0.3);
+          box-shadow: 0 2px 6px rgba(57, 72, 101, 0.3);
+  background: white;
+  font-weight: 400;
+  color: rgba(30, 35, 62, 0.6);
+  z-index: 2; }
+  .options-menu-dialog div {
+    padding: 8px;
+    cursor: pointer; }
+  .options-menu-dialog div:hover {
+    background: rgba(33, 150, 243, 0.05); }
+
+md-input-container {
+  color: #1e233e;
+  font-weight: 700; }
+  md-input-container label {
+    left: 0;
+    font-size: 14px;
+    font-weight: 400; }
+
+.black-button, .blue-button {
+  color: black !important;
+  border-radius: 4px;
+  border: 1.5px solid black;
+  opacity: 0.5;
+  background-color: transparent !important;
+  height: 46px;
+  min-width: 120px;
+  line-height: 46px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+  text-transform: initial; }
+  .black-button:hover, .blue-button:hover {
+    background-color: transparent !important;
+    opacity: 0.9 !important; }
+  .black-button[disabled], .blue-button[disabled] {
+    opacity: 0.2; }
+    .black-button[disabled]:hover, .blue-button[disabled]:hover {
+      background-color: transparent !important;
+      opacity: 0.2 !important; }
+
+.blue-button {
+  color: #6d8eee !important;
+  border: 1.5px solid #6d8eee;
+  opacity: 0.8; }
+
+.green-button {
+  color: #fff !important;
+  border-radius: 4px;
+  opacity: 1;
+  background-color: #58ca8c !important;
+  height: 46px;
+  min-width: 120px;
+  line-height: 46px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+  text-transform: initial; }
+  .green-button:hover {
+    background-color: #58ca8c !important;
+    opacity: 0.8 !important; }
+  .green-button[disabled] {
+    opacity: 0.5; }
+    .green-button[disabled]:hover {
+      background-color: #58ca8c !important;
+      opacity: 0.5 !important; }
+
+.add-new-competition-page {
+  margin-left: 15%;
+  margin-top: 56px; }
+  .add-new-competition-page .form-fields-container {
+    padding: 32px 120px 64px 0 !important;
+    width: 100%;
+    height: 100%; }

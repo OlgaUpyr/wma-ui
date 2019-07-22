@@ -1,0 +1,111 @@
+<div ng-controller="CreateCompetitionController as competitionController" class="app-body add-new-competition-page">
+
+    <div style="visibility: hidden;">
+        <div class="md-dialog-container" id="addSportDialog">
+            <md-dialog class="popup-container" layout-padding="">
+                <div class="close-icon" ng-click="competitionController.closeDialog();">x</div>
+                <form name="addNewSportForm">
+                    <h4 ng-if="!competitionController.newSport.id" class="popup-title">Додати спортивну дисципліну</h4>
+                    <h4 ng-if="competitionController.newSport.id" class="popup-title">Редагувати спортивну
+                        дисципліну</h4>
+
+                    <div class="popup-fields-container" style="width: 300px">
+                        <md-input-container style="width: 100%">
+                            <label>Назва</label>
+                            <input id="sportName" name="sportName"
+                                   ng-model="competitionController.newSport.typeName">
+                        </md-input-container>
+
+                        <md-input-container style="width: 100%">
+                            <label>Тип дисципліни</label>
+                            <md-select id="sportType" name="sportType"
+                                       ng-model="competitionController.newSport.sportType">
+                                <md-option ng-repeat="sportType in competitionController.sportTypes"
+                                           ng-value="sportType"
+                                           ng-checked="competitionController.newSport.sportType === sportType">
+                                    {{sportType}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container style="width: 100%; margin-top: 32px">
+                            <label>Тип змагання</label>
+                            <md-select id="competitionType" name="competitionType"
+                                       ng-model="competitionController.newSport.competitionType">
+                                <md-option ng-repeat="competitionType in competitionController.competitionTypes"
+                                           ng-value="competitionType.value"
+                                           ng-checked="competitionController.newSport.competitionType === competitionType.value">
+                                    {{competitionType.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container style="width: 100%; margin-top: 32px">
+                            <label>Рекорд (чоловіки)</label>
+                            <input id="recordMales" name="recordMales"
+                                   ng-model="competitionController.newSport.recordMale">
+                        </md-input-container>
+
+                        <md-input-container style="width: 100%">
+                            <label>Рекорд (жінки)</label>
+                            <input id="recordFemales" name="recordFemales"
+                                   ng-model="competitionController.newSport.recordFemale">
+                        </md-input-container>
+                    </div>
+                </form>
+
+                <div layout="row" layout-align="center">
+                    <md-button ng-if="!competitionController.newSport.id"
+                               class="green-button" ng-click="competitionController.saveNewSportInfo()">
+                        Зберегти
+                    </md-button>
+
+                    <md-button ng-if="competitionController.newSport.id"
+                               class="green-button" ng-click="competitionController.editSportInfo()">
+                        Зберегти
+                    </md-button>
+                </div>
+            </md-dialog>
+        </div>
+    </div>
+
+    <div layout="row" ng-init="competitionController.initSportTypesList()"
+         style="justify-content: space-between; margin-right: 120px">
+        <div class="page-title">Спортивні дисципліни</div>
+
+        <md-button class="black-button" ng-click="competitionController.showCreateSportTypeDialog()">
+            + Додати
+        </md-button>
+    </div>
+
+    <div class="form-fields-container" style="padding-bottom: 32px">
+        <div layout="row" class="list-header">
+            <div flex="20" class="header-label">Назва</div>
+            <div flex="15" class="header-label">Тип дисципліни</div>
+            <div flex="20" class="header-label">Тип змагання</div>
+            <div flex="20" class="header-label">Рекорд (чоловіки)</div>
+            <div flex="20" class="header-label">Рекорд (жінки)</div>
+            <div flex="5" class="header-label"></div>
+        </div>
+
+        <div class="list-container">
+            <div layout="row" class="list-row"
+                 ng-repeat="type in competitionController.sportTypesList">
+                <div flex="20" class="header-label">{{type.typeName}}</div>
+                <div flex="15" class="header-label" ng-if="type.isRunning">Біг</div>
+                <div flex="15" class="header-label" ng-if="type.isJumping">Стрибки</div>
+                <div flex="15" class="header-label" ng-if="type.isThrowing">Метання</div>
+                <div flex="20" class="header-label" ng-if="type.isIndoor">В приміщенні</div>
+                <div flex="20" class="header-label" ng-if="type.isOutdoor">Поза приміщенням</div>
+                <div flex="20" class="header-label" ng-if="type.isNonstadia">Поза стадіоном</div>
+                <div flex="20" class="header-label">{{type.recordMale}}</div>
+                <div flex="20" class="header-label">{{type.recordFemale}}</div>
+                <div flex="5">
+                    <div class="edit-result-btn no-margin"
+                         ng-click="competitionController.showEditSportTypeDialog(type)">Змінити
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

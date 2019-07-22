@@ -1,0 +1,115 @@
+<div ng-controller="CreateCompetitionController as competitionController" class="app-body add-new-competition-page">
+    <form name="addCompetitionStep1">
+        <div layout="column">
+            <div class="page-title">Створення змагання</div>
+        </div>
+
+        <div class="form-fields-container">
+            <div layout="row" style="justify-content: space-between">
+                <md-input-container flex="40">
+                    <label>Назва</label>
+                    <input id="name" name="name" ng-model="competitionController.newCompetition.name" required>
+                    <div ng-messages="addCompetitionStep1.name.$error">
+                        <div ng-message="required">Назва змагання є обов'язковим полем</div>
+                    </div>
+                </md-input-container>
+
+                <div layout="row" flex="40" style="justify-content: space-between">
+                    <div layout="row" flex="45">
+                        <md-datepicker style="width: 0" ng-model="competitionController.startDate"
+                                       md-is-open="competitionController.isStartDateOpen"
+                                       ng-change="competitionController.setStartDate()">
+                        </md-datepicker>
+                        <md-input-container>
+                            <label>Дата початку</label>
+                            <input name="startDate" contenteditable="false" required
+                                   ng-change="competitionController.isStartDateOpen = false"
+                                   ng-model="competitionController.newCompetition.startDate"
+                                   ng-click="competitionController.isStartDateOpen = true">
+                            <div ng-messages="addCompetitionStep1.startDate.$error">
+                                <div ng-message="required">Дата початку змагання є обов'язковим полем</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" flex="45">
+                        <md-datepicker style="width: 0" ng-model="competitionController.endDate"
+                                       md-is-open="competitionController.isEndDateOpen"
+                                       ng-change="competitionController.setEndDate()">
+                        </md-datepicker>
+                        <md-input-container>
+                            <label>Дата завершення</label>
+                            <input name="endDate" contenteditable="false" required
+                                   ng-change="competitionController.isEndDateOpen = false"
+                                   ng-model="competitionController.newCompetition.endDate"
+                                   ng-click="competitionController.isEndDateOpen = true">
+                            <div ng-messages="addCompetitionStep1.endDate.$error">
+                                <div ng-message="required">Дата завершення змагання є обов'язковим полем</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+
+            <div layout="row" style="justify-content: space-between">
+                <md-input-container flex="40">
+                    <label>Місце проведення</label>
+                    <input id="venue" name="venue"
+                           ng-model="competitionController.newCompetition.venue" required>
+                    <div ng-messages="addCompetitionStep1.venue.$error">
+                        <div ng-message="required">Місце провередення є обов'язковим полем</div>
+                    </div>
+                </md-input-container>
+
+                <div layout="row" flex="40" style="justify-content: space-between">
+                    <md-input-container flex="45" style="margin-left: -16px">
+                        <label>Тип змагання</label>
+                        <md-select id="compType" name="compType" style="width: 110%"
+                                   ng-model="competitionController.newCompetition.competitionType" required>
+                            <md-option ng-repeat="type in competitionController.competitionTypes" ng-value="type.value"
+                                       ng-checked="competitionController.newCompetition.competitionType === type.value">
+                                {{type.name}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="addCompetitionStep1.compType.$error">
+                            <div ng-message="required">Тип змагання є обов'язковим полем</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex="45">
+                        <label style="margin-left: -16px">Клас змагання</label>
+                        <md-select id="compClass" name="compClass" style="width: 110%; margin-left: -16px"
+                                   ng-model="competitionController.newCompetition.competitionClass" required>
+                            <md-option ng-repeat="class in competitionController.competitionClasses" ng-value="class.value"
+                                       ng-checked="competitionController.newCompetition.competitionClass === class.value">
+                                {{class.name}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="addCompetitionStep1.compClass.$error">
+                            <div ng-message="required">Клас змагання є обов'язковим полем</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout="row" style="justify-content: space-between">
+                <md-input-container flex="40">
+                    <label>Кількість учасників командного заліку</label>
+                    <input id="participantsLimit" name="participantsLimit" type="number" min="1"
+                           ng-model="competitionController.newCompetition.participantsLimit" required>
+                    <div ng-messages="addCompetitionStep1.participantsLimit.$error">
+                        <div ng-message="required">Кількість учасників є обов'язковим полем</div>
+                        <div ng-message="min">До командного заліку входить як мінімум один учасник</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="end">
+                <md-button class="green-button" ng-disabled="addCompetitionStep1.$invalid"
+                           ng-click="competitionController.saveGeneralCompetitionInfo()">
+                    Далі
+                </md-button>
+            </div>
+        </div>
+    </form>
+</div>

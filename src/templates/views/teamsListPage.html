@@ -1,0 +1,77 @@
+<div ng-controller="CreateCompetitionController as competitionController" class="app-body add-new-competition-page">
+    <div style="visibility: hidden;">
+        <div class="md-dialog-container" id="addTeamDialog">
+            <md-dialog class="popup-container" layout-padding="">
+                <div class="close-icon" ng-click="competitionController.closeDialog();">x</div>
+                <form name="addNewTeamForm">
+                    <h4 ng-if="!competitionController.newTeam.id" class="popup-title">Додати комаду</h4>
+                    <h4 ng-if="competitionController.newTeam.id" class="popup-title">Редагувати комаду</h4>
+
+                    <div layout="column" class="popup-fields-container" style="min-width: 400px">
+                        <md-input-container>
+                            <label>Назва</label>
+                            <input id="teamName" name="teamName"
+                                   ng-model="competitionController.newTeam.name" required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Регіон</label>
+                            <input id="region" name="lastName"
+                                   ng-model="competitionController.newTeam.region" required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Країна</label>
+                            <input id="country" name="country"
+                                   ng-model="competitionController.newTeam.country" required>
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" layout-align="center">
+                        <md-button class="green-button" ng-disabled="addNewTeamForm.$invalid"
+                                   ng-click="competitionController.saveTeamInfo()">
+                            Зберегти
+                        </md-button>
+                    </div>
+                </form>
+            </md-dialog>
+        </div>
+    </div>
+
+    <div layout="column">
+        <div layout="row" style="justify-content: space-between; margin-right: 120px">
+            <div class="page-title">Список команд</div>
+
+            <md-button class="black-button" ng-click="competitionController.displayAddTeamDialog(null)">
+                Додати команду
+            </md-button>
+        </div>
+    </div>
+
+    <div class="form-fields-container" ng-init="competitionController.initTeamsList()">
+        <div layout="row" class="list-header">
+            <div flex="35">Назва</div>
+            <div flex="35">Регіон</div>
+            <div flex="25">Країна</div>
+            <div flex="5"></div>
+        </div>
+
+        <div class="list-container">
+            <div layout="row" class="list-row" ng-repeat="team in competitionController.teamsList">
+                <div flex="35">{{ team.name }}</div>
+                <div flex="35">{{ team.region }}</div>
+                <div flex="25">{{ team.country }}</div>
+                <div flex="5" class="options-menu"
+                     ng-click="team.checked = !team.checked"></div>
+                <div ng-if="team.checked" class="options-menu-dialog"
+                     ng-mouseleave="team.checked = false">
+                    <div ng-click="competitionController.displayAddTeamDialog(team)">Редагувати загальну інформацію</div>
+                </div>
+            </div>
+
+            <div ng-if="competitionController.teamsList.length === 0" class="empty-list-text">
+                Відсутні команди для відображення...
+            </div>
+        </div>
+    </div>
+</div>
