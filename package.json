@@ -6,7 +6,7 @@
   "license": "ISC",
   "dependencies": {
     "@angular/flex-layout": "7.0.0-beta.23",
-    "angular": "1.7.4",
+    "angular": "1.8.3",
     "angular-animate": "1.7.4",
     "angular-aria": "1.7.4",
     "angular-auto-complete": "^1.7.4",
